@@ -19,7 +19,7 @@ export const Header = () => {
         <BootstrapNavbar.Brand as={Link} to="/">
           {t('hexletChat')}
         </BootstrapNavbar.Brand>
-        {!!user.username && <Button onClick={logOut}>{t('logout')}</Button>}
+        {!!user.token && <Button onClick={logOut}>{t('logout')}</Button>}
       </div>
     </BootstrapNavbar>
   );

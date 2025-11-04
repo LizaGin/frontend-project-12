@@ -38,7 +38,7 @@ export const LoginForm = ({ handleSubmit }) => {
 
   return (
     <Form onSubmit={formik.handleSubmit} className="col-12 col-md-6 mt-3 mt-md-0">
-      <h1 className="text-center mb-4">{t('login.header')}</h1>
+      <h1 className="text-center mb-4">{t('login.enter')}</h1>
       <Form.Group className="form-floating mb-3">
         <Form.Control
           onChange={formik.handleChange}
@@ -73,7 +73,7 @@ export const LoginForm = ({ handleSubmit }) => {
         )} */}
       </Form.Group>
       <Button type="submit" variant="outline-primary" className="w-100 mb-3">
-        {t('login.submit')}
+        {t('login.enter')}
       </Button>
     </Form>
   );

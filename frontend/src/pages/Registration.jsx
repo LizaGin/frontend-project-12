@@ -5,7 +5,7 @@ import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 // import { useRollbar } from '@rollbar/react';
 
-import { login } from '../store/slices/authSlice';
+import { login } from '../store/slices/auth';
 import avatarImages from '../assets/avatar_1.jpg';
 import { RegistrationForm } from '../components/RegistrationForm';
 

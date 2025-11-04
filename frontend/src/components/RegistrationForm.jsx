@@ -39,7 +39,7 @@ export const RegistrationForm = () => {
 
   return (
     <Form onSubmit={formik.handleSubmit} className="col-12 col-md-6 mt-3 mt-md-0">
-      <h1 className="text-center mb-4">{t('login.header')}</h1>
+      <h1 className="text-center mb-4">{t('signup.header')}</h1>
       <Form.Group className="form-floating mb-3">
         <Form.Control
           onChange={formik.handleChange}
@@ -50,9 +50,9 @@ export const RegistrationForm = () => {
           //   isInvalid={authFailed}
           required
           //   ref={inputRef}
-          placeholder={t('login.username')}
+          placeholder={t('signup.username')}
         />
-        <label htmlFor="username">{t('login.username')}</label>
+        <label htmlFor="username">{t('signup.username')}</label>
       </Form.Group>
       <Form.Group className="form-floating mb-4">
         <Form.Control
@@ -64,9 +64,9 @@ export const RegistrationForm = () => {
           autoComplete="current-password"
           //   isInvalid={authFailed}
           required
-          placeholder={t('login.password')}
+          placeholder={t('signup.password')}
         />
-        <Form.Label htmlFor="password">{t('login.password')}</Form.Label>
+        <Form.Label htmlFor="password">{t('signup.password')}</Form.Label>
         {/* {authFailed && (
           <Form.Control.Feedback type="invalid" tooltip>
             {t('login.authFailed')}
@@ -75,16 +75,16 @@ export const RegistrationForm = () => {
       </Form.Group>
       <Form.Group className="form-floating mb-4">
         <Form.Control
-          type="confirmPassword"
+          type="password"
           onChange={formik.handleChange}
           value={formik.values.password}
-          name="password"
+          name="confirmPassword"
           id="confirmPassword"
           //   isInvalid={authFailed}
           required
-          placeholder={t('login.password')}
+          placeholder={t('signup.password')}
         />
-        <Form.Label htmlFor="password">{t('login.password')}</Form.Label>
+        <Form.Label htmlFor="password">{t('signup.password')}</Form.Label>
         {/* {authFailed && (
           <Form.Control.Feedback type="invalid" tooltip>
             {t('login.authFailed')}
@@ -92,7 +92,7 @@ export const RegistrationForm = () => {
         )} */}
       </Form.Group>
       <Button type="submit" variant="outline-primary" className="w-100 mb-3">
-        {t('login.submit')}
+        {t('signup.submit')}
       </Button>
     </Form>
   );
