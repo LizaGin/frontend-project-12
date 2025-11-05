@@ -1,14 +1,17 @@
 import { Button, Navbar as BootstrapNavbar } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
+import { logout } from '/src/store/slices/auth.js';
+
 export const Header = () => {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
 
   const logOut = () => {
     localStorage.removeItem('user');
-    dispatch(actions.logout());
+    dispatch(logout());
   };
 
   const user = useSelector((state) => state.auth);

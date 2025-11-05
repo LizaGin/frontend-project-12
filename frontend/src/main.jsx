@@ -1,19 +1,18 @@
+import i18next from 'i18next';
 import { StrictMode } from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { createRoot } from 'react-dom/client';
-import { store } from './store/store.js';
-import './index.css';
-import './styles.scss';
-import i18next from 'i18next';
 import { I18nextProvider, initReactI18next } from 'react-i18next';
-import App from './App.jsx';
 
-import { resources } from './locales/resources';
+import App from '/src/App.jsx';
+import { resources } from '/src/locales/resources';
+import { store } from '/src/store/store.js';
+import '/src/index.css';
+import '/src/styles.scss';
 
 const i18n = i18next.createInstance();
 
-// i18n инициализируется асинхронно
 await i18n.use(initReactI18next).init({
   resources,
   fallbackLng: 'ru',

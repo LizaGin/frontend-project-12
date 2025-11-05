@@ -10,10 +10,6 @@ const Message = ({ username, body }) => (
 export const MessagePanel = ({ messages, channel }) => {
   const { t } = useTranslation();
 
-  //   useEffect(() => {
-  //     animateScroll.scrollToBottom({ containerId: 'messages-box', delay: 0, duration: 0 });
-  //   }, [messages?.length]);
-
   if (!messages) {
     return null;
   }

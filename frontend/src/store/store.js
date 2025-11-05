@@ -1,12 +1,14 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
-import { auth } from './slices/auth';
-import { channels } from './slices/channels';
-import { channelsApi } from '../api/channels.js';
-import { messagesApi } from '../api/messages.js';
+import { channelsApi } from '/src/api/channels.js';
+import { messagesApi } from '/src/api/messages.js';
+import { app } from '/src/store/slices/app.js';
+import { auth } from '/src/store/slices/auth.js';
+import { channels } from '/src/store/slices/channels.js';
 
 const reducers = combineReducers({
   channels,
   auth,
+  app,
   [channelsApi.reducerPath]: channelsApi.reducer,
   [messagesApi.reducerPath]: messagesApi.reducer,
 });

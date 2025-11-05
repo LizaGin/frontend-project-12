@@ -2,7 +2,7 @@ import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { Button, Form } from 'react-bootstrap';
 
-export const RegistrationForm = () => {
+export const RegistrationForm = ({ handleSubmit }) => {
   const { t } = useTranslation();
   const validate = (values) => {
     const errors = {};
@@ -33,8 +33,12 @@ export const RegistrationForm = () => {
       password: '',
       confirmPassword: '',
     },
-    onSubmit: () => console.log(),
-    validate,
+    onSubmit: (values, { setSubmitting }) => {
+      if (formik.isValid) {
+        handleSubmit(values);
+      }
+      setSubmitting(false);
+    },
   });
 
   return (
