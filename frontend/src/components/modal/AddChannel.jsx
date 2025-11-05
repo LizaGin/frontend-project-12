@@ -1,19 +1,15 @@
-import { useRef, useEffect } from 'react';
 import { Modal as BootstrapModal, Form, Button } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
+
 import { useAddChannelMutation } from '/src/api/channels.js';
+import { useAutofocus } from '/src/hooks/useAutofocus.js';
 
 export const AddChannel = ({ handleClose }) => {
   const [addChannel] = useAddChannelMutation();
-
-  const inputRef = useRef(null);
+  const inputRef = useAutofocus();
   const { t } = useTranslation();
-
-  useEffect(() => {
-    inputRef.current.focus();
-  }, []);
 
   const f = useFormik({
     initialValues: {

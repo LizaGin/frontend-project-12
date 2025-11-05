@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, Dropdown, ButtonGroup } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { PlusSquare } from 'react-bootstrap-icons';
 import { useTranslation } from 'react-i18next';
 
@@ -9,12 +9,14 @@ import { useGetMessagesQuery } from '/src/api/messages.js';
 import { ChannelsList } from '/src/components/ChannelsList.jsx';
 import { MessagePanel } from '/src/components/MessagePanel.jsx';
 import { Modal } from '/src/components/modal/Modal.jsx';
+import useSocket from '/src/hooks/useSocket.js';
 import { openModal } from '/src/store/slices/app.js';
 import { setCurrentChannel } from '/src/store/slices/channels.js';
 
 export const Chat = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
+  useSocket();
 
   const { data: channels } = useGetChannelsQuery(undefined);
   const { data: messages } = useGetMessagesQuery(undefined);
@@ -28,10 +30,9 @@ export const Chat = () => {
 
   useEffect(() => {
     if (channels && channels.length > 0 && !currentChannel.id) {
-      const firstChannel = channels[0];
-      dispatch(setCurrentChannel(firstChannel));
+      dispatch(setCurrentChannel(channels[0]));
     }
-  }, [channels, currentChannel.id, dispatch]);
+  }, [channels, dispatch]);
 
   return (
     <div className="d-flex container h-100">

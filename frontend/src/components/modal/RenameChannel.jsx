@@ -1,4 +1,3 @@
-import { useRef, useEffect } from 'react';
 import { Modal as BootstrapModal, Form, Button } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import { useSelector } from 'react-redux';
@@ -6,19 +5,16 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 
 import { useGetChannelsQuery, useUpdateChannelMutation } from '/src/api/channels.js';
+import { useAutofocus } from '/src/hooks/useAutofocus.js';
 
 export const RenameChannel = ({ handleClose }) => {
   const { t } = useTranslation();
   const { data: channels } = useGetChannelsQuery(undefined);
   const channelId = useSelector((state) => state.app.modal.channelId);
-  const inputRef = useRef(null);
+  const inputRef = useAutofocus();
   const [updateChannel] = useUpdateChannelMutation();
 
   const channel = channels.find(({ id }) => channelId === id);
-
-  useEffect(() => {
-    inputRef.current.focus();
-  }, []);
 
   const f = useFormik({
     initialValues: {

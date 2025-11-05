@@ -1,5 +1,7 @@
 import { useTranslation } from 'react-i18next';
 
+import { NewMessageForm } from '/src/components/NewMessageForm.jsx';
+
 const Message = ({ username, body }) => (
   <div className="text-break mb-2">
     <b>{username}</b>
@@ -27,7 +29,9 @@ export const MessagePanel = ({ messages, channel }) => {
           <Message key={id} username={username} body={body} />
         ))}
       </div>
-      <div className="mt-auto px-5 py-3">{/* <NewMessageForm channel={channel} /> */}</div>
+      <div className="mt-auto px-5 py-3">
+        <NewMessageForm channel={channel} />
+      </div>
     </div>
   );
 };

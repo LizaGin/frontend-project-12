@@ -1,26 +1,11 @@
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { Button, Form } from 'react-bootstrap';
+import { useAutofocus } from '/src/hooks/useAutofocus.js';
 
 export const LoginForm = ({ handleSubmit }) => {
   const { t } = useTranslation();
-
-  const validate = (values) => {
-    const errors = {};
-    if (!values.username) {
-      errors.username = 'required';
-    }
-    if (values.username) {
-    }
-
-    if (!values.password) {
-      errors.password = 'required';
-    }
-    if (values.password) {
-    }
-
-    return errors;
-  };
+  const inputRef = useAutofocus();
 
   const formik = useFormik({
     initialValues: {
@@ -33,7 +18,6 @@ export const LoginForm = ({ handleSubmit }) => {
       }
       setSubmitting(false);
     },
-    validate,
   });
 
   return (
@@ -48,7 +32,7 @@ export const LoginForm = ({ handleSubmit }) => {
           autoComplete="username"
           //   isInvalid={authFailed}
           required
-          //   ref={inputRef}
+          ref={inputRef}
           placeholder={t('login.username')}
         />
         <label htmlFor="username">{t('login.username')}</label>
