@@ -1,4 +1,5 @@
 import { useFormik } from 'formik';
+import filter from 'leo-profanity';
 import { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { Form, InputGroup, Button } from 'react-bootstrap';
@@ -18,7 +19,7 @@ export const NewMessageForm = ({ channel }) => {
     initialValues: { body: '' },
     onSubmit: async ({ body }) => {
       const message = {
-        body,
+        body: filter.clean(body),
         channelId: channel.id,
         username,
       };

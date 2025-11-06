@@ -1,5 +1,6 @@
 import { Modal as BootstrapModal, Form, Button } from 'react-bootstrap';
 import { useFormik } from 'formik';
+import filter from 'leo-profanity';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
@@ -37,7 +38,7 @@ export const AddChannel = ({ handleClose }) => {
       name: '',
     },
     onSubmit: async ({ name }) => {
-      handleAdd(name);
+      handleAdd(filter.clean(name));
       handleClose();
     },
     validateOnBlur: false,

@@ -1,5 +1,6 @@
 import { Modal as BootstrapModal, Form, Button } from 'react-bootstrap';
 import { useFormik } from 'formik';
+import filter from 'leo-profanity';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
@@ -41,7 +42,7 @@ export const RenameChannel = ({ handleClose }) => {
     },
     onSubmit: async ({ name }) => {
       const data = { name, id: channelId };
-      handleRename(data);
+      handleRename(filter.clean(data));
       handleClose();
     },
     validateOnBlur: false,
