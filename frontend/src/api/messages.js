@@ -1,30 +1,30 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 export const messagesApi = createApi({
   reducerPath: 'messagesApi',
   baseQuery: fetchBaseQuery({
     baseUrl: '/api/v1/messages',
     prepareHeaders: (headers, { getState }) => {
-      const { auth } = getState();
+      const { auth } = getState()
 
-      headers.set('Authorization', `Bearer ${auth.token}`);
+      headers.set('Authorization', `Bearer ${auth.token}`)
 
-      return headers;
+      return headers
     },
   }),
   tagTypes: ['messages'],
-  endpoints: (builder) => ({
+  endpoints: builder => ({
     getMessages: builder.query({
       query: () => '',
       providesTags: ['messages'],
     }),
     sentMessage: builder.mutation({
-      query: (message) => ({
+      query: message => ({
         method: 'POST',
         body: message,
       }),
     }),
   }),
-});
+})
 
-export const { useGetMessagesQuery, useSentMessageMutation } = messagesApi;
+export const { useGetMessagesQuery, useSentMessageMutation } = messagesApi

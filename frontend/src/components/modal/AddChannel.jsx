@@ -1,54 +1,56 @@
-import { Modal as BootstrapModal, Form, Button } from 'react-bootstrap';
-import { useFormik } from 'formik';
-import { useDispatch } from 'react-redux';
-import filter from 'leo-profanity';
-import { useTranslation } from 'react-i18next';
-import { toast } from 'react-toastify';
-import * as yup from 'yup';
+import { Modal as BootstrapModal, Form, Button } from 'react-bootstrap'
+import { useFormik } from 'formik'
+import { useDispatch } from 'react-redux'
+import filter from 'leo-profanity'
+import { useTranslation } from 'react-i18next'
+import { toast } from 'react-toastify'
+import * as yup from 'yup'
 
-import { useAddChannelMutation, useGetChannelsQuery } from '/src/api/channels.js';
-import { useAutofocus } from '/src/hooks/useAutofocus.js';
-import { setCurrentChannel } from '/src/store/slices/channels.js';
+import { useAddChannelMutation, useGetChannelsQuery } from '/src/api/channels.js'
+import { useAutofocus } from '/src/hooks/useAutofocus.js'
+import { setCurrentChannel } from '/src/store/slices/channels.js'
 
 export const AddChannel = ({ handleClose }) => {
-  const { t } = useTranslation();
-  const dispatch = useDispatch();
-  const { data: channels } = useGetChannelsQuery(undefined);
-  const [addChannel] = useAddChannelMutation();
-  const inputRef = useAutofocus();
+  const { t } = useTranslation()
+  const dispatch = useDispatch()
+  const { data: channels } = useGetChannelsQuery(undefined)
+  const [addChannel] = useAddChannelMutation()
+  const inputRef = useAutofocus()
 
-  const channelsNames = channels.map((channel) => channel.name);
+  const channelsNames = channels.map(channel => channel.name)
 
   const validationSchema = yup.object().shape({
     name: yup.string().trim().required('modals.required').min(3, 'modals.min').max(20, 'modals.max').notOneOf(channelsNames, 'modals.uniq'),
-  });
+  })
 
   const handleAdd = async (name) => {
     try {
-      const response = await addChannel({ name });
-      dispatch(setCurrentChannel(response.data));
-      toast.success(t('channels.created'));
-    } catch (error) {
+      const response = await addChannel({ name })
+      dispatch(setCurrentChannel(response.data))
+      toast.success(t('channels.created'))
+    }
+    catch (error) {
       if (error.name === 'TypeError' && error.message.includes('Network')) {
-        toast.error(t('errors.network'));
-      } else {
-        toast.error(t('errors.unknown'));
+        toast.error(t('errors.network'))
+      }
+      else {
+        toast.error(t('errors.unknown'))
       }
     }
-  };
+  }
 
   const f = useFormik({
     initialValues: {
       name: '',
     },
     onSubmit: async ({ name }) => {
-      handleAdd(filter.clean(name));
-      handleClose();
+      handleAdd(filter.clean(name))
+      handleClose()
     },
     validateOnBlur: false,
     validateOnChange: true,
     validationSchema,
-  });
+  })
 
   return (
     <>
@@ -86,5 +88,5 @@ export const AddChannel = ({ handleClose }) => {
         </Form>
       </BootstrapModal.Body>
     </>
-  );
-};
+  )
+}

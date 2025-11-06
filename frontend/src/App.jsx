@@ -1,15 +1,15 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
+import { Routes, Route, Navigate } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify'
 
-import { Header } from '/src/components/Header';
-import { Chat } from '/src/pages/Chat';
-import { LoginPage } from '/src/pages/Login';
-import { NotFoundPage } from '/src/pages/NotFound';
-import { Registration } from '/src/pages/Registration';
-import { useSelector } from 'react-redux';
+import { Header } from '/src/components/Header'
+import { Chat } from '/src/pages/Chat'
+import { LoginPage } from '/src/pages/Login'
+import { NotFoundPage } from '/src/pages/NotFound'
+import { Registration } from '/src/pages/Registration'
+import { useSelector } from 'react-redux'
 
-function App() {
-  const user = useSelector((state) => state.auth);
+const App = () => {
+  const user = useSelector(state => state.auth)
 
   return (
     <div className="d-flex flex-column h-100">
@@ -22,7 +22,7 @@ function App() {
       </Routes>
       <ToastContainer />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

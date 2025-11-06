@@ -1,9 +1,9 @@
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'
 
-import notFoundImage from '/src/assets/404.svg';
+import notFoundImage from '/src/assets/404.svg'
 
 export const NotFoundPage = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   return (
     <div className="min-vh-75 d-flex flex-column justify-content-center align-items-center p-3">
@@ -16,5 +16,5 @@ export const NotFoundPage = () => {
         </p>
       </div>
     </div>
-  );
-};
+  )
+}

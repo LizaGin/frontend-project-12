@@ -7,12 +7,15 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "preview": "vite preview"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.10.0",
+    "@stylistic/eslint-plugin": "^5.5.0",
     "axios": "^1.13.1",
     "bootstrap": "^5.3.8",
+    "eslint-plugin-functional": "^9.0.2",
     "formik": "^2.4.6",
     "leo-profanity": "^1.8.0",
     "react": "^19.1.1",

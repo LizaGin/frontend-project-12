@@ -1,19 +1,19 @@
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'
 
-import { NewMessageForm } from '/src/components/NewMessageForm.jsx';
+import { NewMessageForm } from '/src/components/NewMessageForm.jsx'
 
 const Message = ({ username, body }) => (
   <div className="text-break mb-2">
     <b>{username}</b>
     {`: ${body}`}
   </div>
-);
+)
 
 export const MessagePanel = ({ messages, channel }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   if (!messages) {
-    return null;
+    return null
   }
 
   return (
@@ -33,5 +33,5 @@ export const MessagePanel = ({ messages, channel }) => {
         <NewMessageForm channel={channel} />
       </div>
     </div>
-  );
-};
+  )
+}

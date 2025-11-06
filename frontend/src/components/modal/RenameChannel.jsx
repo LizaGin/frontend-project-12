@@ -1,54 +1,56 @@
-import { Modal as BootstrapModal, Form, Button } from 'react-bootstrap';
-import { useFormik } from 'formik';
-import filter from 'leo-profanity';
-import { useSelector } from 'react-redux';
-import { useTranslation } from 'react-i18next';
-import { toast } from 'react-toastify';
-import * as yup from 'yup';
+import { Modal as BootstrapModal, Form, Button } from 'react-bootstrap'
+import { useFormik } from 'formik'
+import filter from 'leo-profanity'
+import { useSelector } from 'react-redux'
+import { useTranslation } from 'react-i18next'
+import { toast } from 'react-toastify'
+import * as yup from 'yup'
 
-import { useGetChannelsQuery, useUpdateChannelMutation } from '/src/api/channels.js';
-import { useAutofocus } from '/src/hooks/useAutofocus.js';
+import { useGetChannelsQuery, useUpdateChannelMutation } from '/src/api/channels.js'
+import { useAutofocus } from '/src/hooks/useAutofocus.js'
 
 export const RenameChannel = ({ handleClose }) => {
-  const { t } = useTranslation();
-  const { data: channels } = useGetChannelsQuery(undefined);
-  const [updateChannel] = useUpdateChannelMutation();
-  const channelId = useSelector((state) => state.app.modal.channelId);
-  const inputRef = useAutofocus();
+  const { t } = useTranslation()
+  const { data: channels } = useGetChannelsQuery(undefined)
+  const [updateChannel] = useUpdateChannelMutation()
+  const channelId = useSelector(state => state.app.modal.channelId)
+  const inputRef = useAutofocus()
 
-  const channel = channels.find(({ id }) => channelId === id);
-  const channelsNames = channels.map((channel) => channel.name);
+  const channel = channels.find(({ id }) => channelId === id)
+  const channelsNames = channels.map(channel => channel.name)
 
   const validationSchema = yup.object().shape({
     name: yup.string().trim().required('modals.required').min(3, 'modals.min').max(20, 'modals.max').notOneOf(channelsNames, 'modals.uniq'),
-  });
+  })
 
   const handleRename = async (data) => {
     try {
-      await updateChannel(data);
-      toast.success(t('channels.renamed'));
-    } catch (error) {
+      await updateChannel(data)
+      toast.success(t('channels.renamed'))
+    }
+    catch (error) {
       if (error.name === 'TypeError' && error.message.includes('Network')) {
-        toast.error(t('errors.network'));
-      } else {
-        toast.error(t('errors.unknown'));
+        toast.error(t('errors.network'))
+      }
+      else {
+        toast.error(t('errors.unknown'))
       }
     }
-  };
+  }
 
   const f = useFormik({
     initialValues: {
       name: channel.name,
     },
     onSubmit: async ({ name }) => {
-      const data = { name: filter.clean(name), id: channelId };
-      handleRename(data);
-      handleClose();
+      const data = { name: filter.clean(name), id: channelId }
+      handleRename(data)
+      handleClose()
     },
     validateOnBlur: false,
     validateOnChange: true,
     validationSchema,
-  });
+  })
 
   return (
     <>
@@ -86,5 +88,5 @@ export const RenameChannel = ({ handleClose }) => {
         </Form>
       </BootstrapModal.Body>
     </>
-  );
-};
+  )
+}

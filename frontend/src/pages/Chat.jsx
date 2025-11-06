@@ -1,38 +1,38 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Button } from 'react-bootstrap';
-import { PlusSquare } from 'react-bootstrap-icons';
-import { useTranslation } from 'react-i18next';
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Button } from 'react-bootstrap'
+import { PlusSquare } from 'react-bootstrap-icons'
+import { useTranslation } from 'react-i18next'
 
-import { useGetChannelsQuery } from '/src/api/channels.js';
-import { useGetMessagesQuery } from '/src/api/messages.js';
-import { ChannelsList } from '/src/components/ChannelsList.jsx';
-import { MessagePanel } from '/src/components/MessagePanel.jsx';
-import { Modal } from '/src/components/modal/Modal.jsx';
-import useSocket from '/src/hooks/useSocket.js';
-import { openModal } from '/src/store/slices/app.js';
-import { setCurrentChannel } from '/src/store/slices/channels.js';
+import { useGetChannelsQuery } from '/src/api/channels.js'
+import { useGetMessagesQuery } from '/src/api/messages.js'
+import { ChannelsList } from '/src/components/ChannelsList.jsx'
+import { MessagePanel } from '/src/components/MessagePanel.jsx'
+import { Modal } from '/src/components/modal/Modal.jsx'
+import useSocket from '/src/hooks/useSocket.js'
+import { openModal } from '/src/store/slices/app.js'
+import { setCurrentChannel } from '/src/store/slices/channels.js'
 
 export const Chat = () => {
-  const dispatch = useDispatch();
-  const { t } = useTranslation();
-  useSocket();
+  const dispatch = useDispatch()
+  const { t } = useTranslation()
+  useSocket()
 
-  const { data: channels } = useGetChannelsQuery(undefined);
-  const { data: messages } = useGetMessagesQuery(undefined);
+  const { data: channels } = useGetChannelsQuery(undefined)
+  const { data: messages } = useGetMessagesQuery(undefined)
 
-  const currentChannel = useSelector((state) => state.channels.currentChannel);
-  const currentMessages = messages?.filter((m) => m.channelId === currentChannel.id);
+  const currentChannel = useSelector(state => state.channels.currentChannel)
+  const currentMessages = messages?.filter(m => m.channelId === currentChannel.id)
 
   const handleAddChannel = () => {
-    dispatch(openModal({ type: 'add' }));
-  };
+    dispatch(openModal({ type: 'add' }))
+  }
 
   useEffect(() => {
     if (channels && channels.length > 0 && !currentChannel.id) {
-      dispatch(setCurrentChannel(channels[0]));
+      dispatch(setCurrentChannel(channels[0]))
     }
-  }, [channels, dispatch]);
+  }, [channels, dispatch])
 
   return (
     <div className="d-flex container h-100">
@@ -51,5 +51,5 @@ export const Chat = () => {
       </div>
       <Modal />
     </div>
-  );
-};
+  )
+}

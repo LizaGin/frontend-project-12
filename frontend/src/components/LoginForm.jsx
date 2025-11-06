@@ -1,29 +1,32 @@
-import { useFormik } from 'formik';
-import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { Button, Form } from 'react-bootstrap';
-import { toast } from 'react-toastify';
+import { useFormik } from 'formik'
+import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { Button, Form } from 'react-bootstrap'
+import { toast } from 'react-toastify'
 
-import { useAutofocus } from '/src/hooks/useAutofocus.js';
+import { useAutofocus } from '/src/hooks/useAutofocus.js'
 
 export const LoginForm = ({ handleSubmit }) => {
-  const { t } = useTranslation();
-  const [loginError, setLoginError] = useState();
-  const inputRef = useAutofocus();
+  const { t } = useTranslation()
+  const [loginError, setLoginError] = useState()
+  const inputRef = useAutofocus()
 
   const handleLogin = async (values) => {
     try {
-      await handleSubmit(values);
-    } catch (error) {
+      await handleSubmit(values)
+    }
+    catch (error) {
       if (error.status === 401) {
-        setLoginError(true);
-      } else if (error.name === 'TypeError' && error.message.includes('Network')) {
-        toast.error(t('errors.network'));
-      } else {
-        toast.error(t('errors.unknown'));
+        setLoginError(true)
+      }
+      else if (error.name === 'TypeError' && error.message.includes('Network')) {
+        toast.error(t('errors.network'))
+      }
+      else {
+        toast.error(t('errors.unknown'))
       }
     }
-  };
+  }
 
   const formik = useFormik({
     initialValues: {
@@ -32,11 +35,11 @@ export const LoginForm = ({ handleSubmit }) => {
     },
     onSubmit: (values, { setSubmitting }) => {
       if (formik.isValid) {
-        handleLogin(values);
+        handleLogin(values)
       }
-      setSubmitting(false);
+      setSubmitting(false)
     },
-  });
+  })
 
   return (
     <Form onSubmit={formik.handleSubmit} className="col-12 col-md-6 mt-3 mt-md-0">
@@ -44,8 +47,8 @@ export const LoginForm = ({ handleSubmit }) => {
       <Form.Group className="form-floating mb-3">
         <Form.Control
           onChange={(e) => {
-            formik.handleChange(e);
-            setLoginError(false);
+            formik.handleChange(e)
+            setLoginError(false)
           }}
           value={formik.values.username}
           name="username"
@@ -62,8 +65,8 @@ export const LoginForm = ({ handleSubmit }) => {
         <Form.Control
           type="password"
           onChange={(e) => {
-            formik.handleChange(e);
-            setLoginError(false);
+            formik.handleChange(e)
+            setLoginError(false)
           }}
           value={formik.values.password}
           name="password"
@@ -84,5 +87,5 @@ export const LoginForm = ({ handleSubmit }) => {
         {t('login.enter')}
       </Button>
     </Form>
-  );
-};
+  )
+}

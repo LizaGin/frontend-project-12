@@ -1,36 +1,39 @@
-import { useFormik } from 'formik';
-import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { Button, Form } from 'react-bootstrap';
-import { toast } from 'react-toastify';
-import * as yup from 'yup';
+import { useFormik } from 'formik'
+import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { Button, Form } from 'react-bootstrap'
+import { toast } from 'react-toastify'
+import * as yup from 'yup'
 
-import { useAutofocus } from '/src/hooks/useAutofocus.js';
+import { useAutofocus } from '/src/hooks/useAutofocus.js'
 
 export const RegistrationForm = ({ handleSubmit }) => {
-  const { t } = useTranslation();
-  const [registrationError, setRegistrationError] = useState();
-  const inputRef = useAutofocus();
+  const { t } = useTranslation()
+  const [registrationError, setRegistrationError] = useState()
+  const inputRef = useAutofocus()
 
   const handleRegistration = async (values) => {
     try {
-      await handleSubmit(values);
-    } catch (error) {
+      await handleSubmit(values)
+    }
+    catch (error) {
       if (error.status === 409) {
-        setRegistrationError(true);
-      } else if (error.name === 'TypeError' && error.message.includes('Network')) {
-        toast.error(t('errors.network'));
-      } else {
-        toast.error(t('errors.unknown'));
+        setRegistrationError(true)
+      }
+      else if (error.name === 'TypeError' && error.message.includes('Network')) {
+        toast.error(t('errors.network'))
+      }
+      else {
+        toast.error(t('errors.unknown'))
       }
     }
-  };
+  }
 
   const validationSchema = yup.object().shape({
     username: yup.string().trim().required('signup.required').min(3, 'signup.usernameConstraints').max(20, 'signup.usernameConstraints'),
     password: yup.string().trim().required('signup.required').min(6, 'signup.passMin'),
     confirmPassword: yup.string().test('confirmPassword', 'signup.mustMatch', (value, context) => value === context.parent.password),
-  });
+  })
 
   const formik = useFormik({
     initialValues: {
@@ -40,16 +43,16 @@ export const RegistrationForm = ({ handleSubmit }) => {
     },
     onSubmit: (values, { setSubmitting }) => {
       if (formik.isValid) {
-        handleRegistration(values);
+        handleRegistration(values)
       }
-      setSubmitting(false);
+      setSubmitting(false)
     },
     validationSchema,
-  });
+  })
 
-  const isUsernameInvalid = (formik.errors.username && formik.touched.username && formik.values.username.length > 0) || registrationError;
-  const isPasswordInvalid = formik.errors.password && formik.touched.password && formik.values.password.length > 0;
-  const isConfirmPasswordInvalid = formik.errors.confirmPassword && formik.touched.confirmPassword && formik.values.confirmPassword.length > 0;
+  const isUsernameInvalid = (formik.errors.username && formik.touched.username && formik.values.username.length > 0) || registrationError
+  const isPasswordInvalid = formik.errors.password && formik.touched.password && formik.values.password.length > 0
+  const isConfirmPasswordInvalid = formik.errors.confirmPassword && formik.touched.confirmPassword && formik.values.confirmPassword.length > 0
 
   return (
     <Form onSubmit={formik.handleSubmit} className="col-12 col-md-6 mt-3 mt-md-0">
@@ -57,8 +60,8 @@ export const RegistrationForm = ({ handleSubmit }) => {
       <Form.Group className="form-floating mb-3">
         <Form.Control
           onChange={(e) => {
-            formik.handleChange(e);
-            setRegistrationError(false);
+            formik.handleChange(e)
+            setRegistrationError(false)
           }}
           value={formik.values.username}
           name="username"
@@ -71,7 +74,9 @@ export const RegistrationForm = ({ handleSubmit }) => {
         />
         <Form.Label htmlFor="username">{t('signup.username')}</Form.Label>
         <Form.Control.Feedback type="invalid" tooltip placement="right">
-          {registrationError ? t('signup.alreadyExists') : t(formik.errors.username)}
+          {registrationError
+            ? t('signup.alreadyExists')
+            : t(formik.errors.username)}
         </Form.Control.Feedback>
       </Form.Group>
       <Form.Group className="form-floating mb-4">
@@ -111,5 +116,5 @@ export const RegistrationForm = ({ handleSubmit }) => {
         {t('signup.submit')}
       </Button>
     </Form>
-  );
-};
+  )
+}

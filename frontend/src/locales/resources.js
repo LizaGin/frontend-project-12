@@ -1,7 +1,7 @@
-import { ru } from './ru';
+import { ru } from './ru'
 
 export const resources = {
   ru: {
     translation: ru,
   },
-};
+}
