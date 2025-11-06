@@ -1,5 +1,6 @@
 import { Modal as BootstrapModal, Form, Button } from 'react-bootstrap';
 import { useFormik } from 'formik';
+import { useDispatch } from 'react-redux';
 import filter from 'leo-profanity';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
@@ -7,9 +8,11 @@ import * as yup from 'yup';
 
 import { useAddChannelMutation, useGetChannelsQuery } from '/src/api/channels.js';
 import { useAutofocus } from '/src/hooks/useAutofocus.js';
+import { setCurrentChannel } from '/src/store/slices/channels.js';
 
 export const AddChannel = ({ handleClose }) => {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
   const { data: channels } = useGetChannelsQuery(undefined);
   const [addChannel] = useAddChannelMutation();
   const inputRef = useAutofocus();
@@ -22,7 +25,8 @@ export const AddChannel = ({ handleClose }) => {
 
   const handleAdd = async (name) => {
     try {
-      await addChannel({ name });
+      const response = await addChannel({ name });
+      dispatch(setCurrentChannel(response.data));
       toast.success(t('channels.created'));
     } catch (error) {
       if (error.name === 'TypeError' && error.message.includes('Network')) {

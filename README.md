@@ -24,7 +24,7 @@
 
 ```
 
-npm install
+make install
 
 ```
 
@@ -32,6 +32,6 @@ npm install
 
 ```
 
-make develop
+make start
 
 ```

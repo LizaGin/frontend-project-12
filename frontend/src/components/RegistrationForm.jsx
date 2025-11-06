@@ -100,9 +100,9 @@ export const RegistrationForm = ({ handleSubmit }) => {
           id="confirmPassword"
           isInvalid={isConfirmPasswordInvalid}
           required
-          placeholder={t('signup.password')}
+          placeholder={t('signup.confirm')}
         />
-        <Form.Label htmlFor="confirmPassword">{t('signup.password')}</Form.Label>
+        <Form.Label htmlFor="confirmPassword">{t('signup.confirm')}</Form.Label>
         <Form.Control.Feedback type="invalid" tooltip placement="right">
           {t(formik.errors.confirmPassword)}
         </Form.Control.Feedback>

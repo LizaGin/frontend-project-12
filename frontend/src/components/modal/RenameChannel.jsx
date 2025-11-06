@@ -41,8 +41,8 @@ export const RenameChannel = ({ handleClose }) => {
       name: channel.name,
     },
     onSubmit: async ({ name }) => {
-      const data = { name, id: channelId };
-      handleRename(filter.clean(data));
+      const data = { name: filter.clean(name), id: channelId };
+      handleRename(data);
       handleClose();
     },
     validateOnBlur: false,
