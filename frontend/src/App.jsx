@@ -1,4 +1,5 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 
 import { Header } from '/src/components/Header';
 import { Chat } from '/src/pages/Chat';
@@ -19,6 +20,7 @@ function App() {
         <Route path="/signup" element={<Registration />}></Route>
         <Route path="*" element={<NotFoundPage />}></Route>
       </Routes>
+      <ToastContainer />
     </div>
   );
 }
